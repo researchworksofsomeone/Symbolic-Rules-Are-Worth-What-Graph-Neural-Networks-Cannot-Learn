@@ -1,8 +1,25 @@
-# Symbolic Rules Are Worth What Graph Neural Networks Cannot Learn
+# Pricing Symbolic Rules by What GNNs Leave Unlearned
 
 **A learnability theory of neuro-symbolic gains in GNNs, and out-of-fold discovery of the missing rule.**
 
-This repository contains the full experimental notebook (`ACML.ipynb`) behind the paper *"Symbolic Rules Are Worth What Graph Neural Networks Cannot Learn: A Learnability Theory and Out-of-Fold Discovery of Missing Rules"* (under review; authors anonymised). Every number in the paper comes from real public datasets. No synthetic data is used for any reported result; synthetic graphs appear only as smoke tests and controls.
+**Satabarto Sarkar** and **Prithwineel Paul**
+Department of Computer Science and Engineering, Institute of Engineering and Management (IEM), Kolkata, India
+(under the University of Engineering and Management (UEM), Kolkata)
+
+GraphML 2026 Workshop at ACML 2026 (paper #11)
+
+[![arXiv](https://img.shields.io/badge/arXiv-2611.12446-b31b1b.svg)](https://arxiv.org/abs/2611.12446)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-NesyGNN-yellow.svg)](https://huggingface.co/APassionateResearchers/NesyGNN)
+
+| | |
+|---|---|
+| Paper | https://arxiv.org/abs/2611.12446 |
+| Results, caches and figures | https://huggingface.co/APassionateResearchers/NesyGNN |
+| Contact | Satabarto.Sarkar2023@iem.edu.in · prithwineel.paul@iem.edu.in |
+| Satabarto Sarkar | [Portfolio](https://satabartosarkar.vercel.app/) · [Google Scholar](https://scholar.google.com/citations?user=8Zb7tHgAAAAJ) · [ORCID 0009-0002-6855-3616](https://orcid.org/0009-0002-6855-3616) |
+| Prithwineel Paul | [Google Scholar](https://scholar.google.com/citations?user=DYqUKZMAAAAJ) · [ORCID 0000-0001-8351-3407](https://orcid.org/0000-0001-8351-3407) |
+
+This repository contains the full experimental notebook (`ACML.ipynb`) behind our paper *"Pricing Symbolic Rules by What GNNs Leave Unlearned"*, presented at the GraphML 2026 Workshop at ACML 2026 ([arXiv:2611.12446](https://arxiv.org/abs/2611.12446)). Every number in the paper comes from real public datasets. No synthetic data is used for any reported result; synthetic graphs appear only as smoke tests and controls.
 
 ---
 
@@ -29,7 +46,7 @@ Neuro-symbolic graph learning adds hand-designed knowledge, such as cycle counts
 
 ## Theory
 
-Notation. A graph $`G`$ has label $`Y`$. A symbolic rule is a function $`S=s(G)`$. A model family $`\mathcal F`$ has *computable information* $`\sigma_{\mathcal F}`$, the σ-algebra of everything its representations can compute. A trained network has readout input $`T`$ (here, the concatenated per-layer sum-pools). All losses are log-loss in nats.
+Notation: a graph $`G`$ has label $`Y`$. A symbolic rule is a function $`S=s(G)`$. A model family $`\mathcal F`$ has *computable information* $`\sigma_{\mathcal F}`$, the σ-algebra of everything its representations can compute. A trained network has readout input $`T`$ (here, the concatenated per-layer sum-pools). All losses are log-loss in nats.
 
 ### Theorem 1: absorption identity
 
@@ -47,7 +64,7 @@ with computable bounds
 
 The gap between the upper bound $`H(S\mid\sigma)`$ and the unclipped lower bound is exactly $`H(S\mid Y)`$.
 
-**Corollary (expressible knowledge is worthless).** If $`S`$ is $`\sigma`$-measurable, it is worth zero. For a $`t`$-layer GIN this holds for every rule whose WL ambiguity $`\alpha_t(s)`$ is zero on the data, *including rules that 1-WL cannot compute on general graphs*.
+**Corollary (expressible knowledge is worthless):** if $`S`$ is $`\sigma`$-measurable, it is worth zero. For a $`t`$-layer GIN this holds for every rule whose WL ambiguity $`\alpha_t(s)`$ is zero on the data, *including rules that 1-WL cannot compute on general graphs*.
 
 ### Theorem 2: gain-ledger identity (neural debt)
 
@@ -143,24 +160,24 @@ All datasets are public. The notebook downloads each one itself; no manual downl
 | Actor | node classification | https://github.com/graphdml-uiuc-jlu/geom-gcn |
 | Roman-empire, Amazon-ratings, Minesweeper, Tolokers, Questions | node classification | https://github.com/yandex-research/heterophilous-graphs |
 
-Optional precomputed results, caches and figures are mirrored on the Hugging Face Hub at `<HF_REPO>` (link to be added after review).
+Precomputed results, caches and figures are mirrored on the Hugging Face Hub: https://huggingface.co/APassionateResearchers/NesyGNN
 
 ---
 
 ## Notebook map
 
-`ACML.ipynb` was written for [marimo](https://marimo.io) / molab and exported to Jupyter format. The cells after Part II are **standalone**: each one has its own imports, downloads, caches and verdicts, and can be run on its own.
+`ACML.ipynb` was written for [marimo](https://marimo.io) / molab and exported to Jupyter format. The cells after Part II are **standalone**: each one has its own imports, downloads, caches and summaries, and can be run on its own.
 
 | Cells | What they do |
 |---|---|
 | 1–3 | Environment, resource report, configuration (`SMOKE=1` runs a tiny CPU smoke test) |
 | 4–9 | Node-level data loaders (no torch_geometric), graph utilities, MLP/GCN/SAGE, the symbolic compatibility/belief-propagation layer, metrics, memory plan |
-| 10–24 | Node-level experiments: resumable heavy stage, tables with confidence intervals, absorption (H5), information ceilings (H2, H6), figures, pre-registered verdicts |
+| 10–24 | Node-level experiments: resumable heavy stage, tables with confidence intervals, absorption (H5), information ceilings (H2, H6), figures, summaries |
 | G1–G3 | TU graph data, GIN/DeepSets with symbolic readout features, per-fold units |
 | G4–G6 | Graph-level absorption and the **exact 1-WL ambiguity analysis** |
 | G7–G10 | Readout test (linear vs MLP) and the **gain ledger** with CIs and shuffled/size-only controls |
 | Proofs | Short complete proofs of the theorems |
-| L1–L2 | **Learnability law** on ZINC, NCI1 and PROTEINS: probes, $`R^2_T`$, Fano certificates, verdicts |
+| L1–L2 | **Learnability law** on ZINC, NCI1 and PROTEINS: probes, $`R^2_T`$, Fano certificates, summaries |
 | D1–D6 | Discovery development: ring candidates on ZINC, permutation certification, molhiv with all OGB features, COLLAB |
 | D7–D8 | **Final method**: out-of-fold block discovery with scaled-χ² calibration and Westfall–Young p-values (ZINC, molhiv, COLLAB) |
 | D9 | **Held-out confirmation**: the frozen D7 method on molbace, molbbbp, PROTEINS, IMDB-B, REDDIT-B |
@@ -173,7 +190,7 @@ Some cells appear twice: earlier versions are kept for provenance, and the later
 
 ## How to run
 
-**Requirements.** Python ≥ 3.10, PyTorch with CUDA, numpy, scipy, pandas, matplotlib, networkx, rdkit (for the molecular cells), ogb, and marimo (optional). `huggingface_hub` is needed only for the optional mirror cells.
+**Requirements:** Python ≥ 3.10, PyTorch with CUDA, numpy, scipy, pandas, matplotlib, networkx, rdkit (for the molecular cells), ogb, and marimo (optional). `huggingface_hub` is needed only for the optional mirror cells.
 
 ```bash
 pip install torch numpy scipy pandas matplotlib networkx rdkit ogb marimo
@@ -181,7 +198,7 @@ pip install torch numpy scipy pandas matplotlib networkx rdkit ogb marimo
 pip install "huggingface_hub>=0.34,<1.0"
 ```
 
-**Run.**
+**Run:**
 
 ```bash
 jupyter lab ACML.ipynb        # or convert to marimo: marimo convert ACML.ipynb -o acml.py && marimo edit acml.py
@@ -216,7 +233,19 @@ jupyter lab ACML.ipynb        # or convert to marimo: marimo convert ACML.ipynb 
 
 ## Citation
 
-The citation will be added after the review process. Until then, please cite this repository.
+If you use this code or the results, please cite:
+
+```bibtex
+@misc{sarkar2026pricing,
+  title         = {Pricing Symbolic Rules by What {GNNs} Leave Unlearned},
+  author        = {Sarkar, Satabarto and Paul, Prithwineel},
+  year          = {2026},
+  eprint        = {2611.12446},
+  archivePrefix = {arXiv},
+  note          = {GraphML 2026 Workshop at ACML 2026},
+  url           = {https://arxiv.org/abs/2611.12446}
+}
+```
 
 ## License
 
